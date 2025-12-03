@@ -2,22 +2,16 @@ import os
 from PyPDF2 import PdfReader, PdfWriter
 import glob
 
-# --- Configuration ---
-# 1. Directory where your 100 original PDFs are located
-# YOU MUST UPDATE THESE PATHS!
-INPUT_DIR = "C:/Users/xxdrk/OneDrive/Documents/Notes/Islamic/Islamic/00_Qur'ran" 
 
-# 2. Directory where you want to save the modified PDFs
 # YOU MUST UPDATE THESE PATHS!
-OUTPUT_DIR = "C:/Users/xxdrk/Desktop/Pythonscripts/test"
-
-# Create the output directory if it doesn't exist
+INPUT_DIR = "" 
+# YOU MUST UPDATE THESE PATHS!
+OUTPUT_DIR = ""
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 # ---------------------
 
 print(f"Starting to process PDFs in: {INPUT_DIR}")
 
-# Use glob to find all files ending with .pdf in the input directory
 pdf_files = glob.glob(os.path.join(INPUT_DIR, '*.pdf'))
 
 if not pdf_files:
@@ -50,15 +44,16 @@ else:
                 with open(output_filepath, 'wb') as output_file_handle:
                     writer.write(output_file_handle)
                     
-                print(f"✅ Processed and saved: {base_filename}")
+                print(f" Processed and saved: {base_filename}")
             else:
-                print(f"⚠️ Skipped: {base_filename} (Only has 1 page or less).")
+                print(f" Skipped: {base_filename} (Only has 1 page or less).")
 
         except Exception as e:
-            print(f"❌ Error processing {os.path.basename(filename)}: {e}")
+            print(f"  Error processing {os.path.basename(filename)}: {e}")
         finally:
             # Important: Close the input file handle to free up resources
             if 'input_file_handle' in locals() and not input_file_handle.closed:
                 input_file_handle.close()
 
     print("\nProcessing complete.")
+
